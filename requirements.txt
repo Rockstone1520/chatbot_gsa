@@ -1,0 +1,9 @@
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+pydantic>=2.11
+pydantic-settings==2.2.1
+openai>=1.30.0
+azure-search-documents>=11.4.0
+azure-cosmos>=4.7.0
+azure-core>=1.30.0
+python-dotenv>=1.0.0
