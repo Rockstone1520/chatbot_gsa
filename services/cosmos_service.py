@@ -9,9 +9,10 @@ def _container():
 
 
 def crear_producto(data: ProductoCreate) -> dict:
-    """Inserta un producto nuevo en Cosmos. Genera el id."""
+    """Inserta un producto nuevo en Cosmos. Genera el id y fija pk=id."""
     producto = data.model_dump()
     producto["id"] = f"prod-{uuid.uuid4().hex[:8]}"
+    producto["pk"] = producto["id"]
     _container().create_item(body=producto)
     return producto
 

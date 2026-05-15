@@ -59,7 +59,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Catálogo RAG API",
-    description="Backend RAG sobre catálogo de productos con Azure.",
+    description="Backend RAG sobre catálogo de productos de GSA con Azure.",
     version="1.0.0",
     lifespan=lifespan,
 )

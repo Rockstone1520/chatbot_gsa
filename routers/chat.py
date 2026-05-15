@@ -16,6 +16,10 @@ def chat(body: ChatRequest):
     al catálogo.
     """
     try:
-        return chat_service.responder(body.pregunta)
+        id_ultimo_response = body.id_ultimo_response if body.id_ultimo_response else None
+        return chat_service.responder(
+            pregunta=body.pregunta,
+            id_ultimo_response=id_ultimo_response
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
