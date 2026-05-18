@@ -38,6 +38,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Check Azure Account
+        run: |
+          az account show
+          az account list --output table
+
       - name: Update Container App
         run: |
           az containerapp update \
