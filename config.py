@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     cosmos_database: str = "catalogo_db"
     cosmos_container: str = "productos"
 
+    # Seguridad
+    internal_api_key: str
+
     class Config:
         env_file = ".env"
         case_sensitive = False
