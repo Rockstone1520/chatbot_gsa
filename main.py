@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from azure.search.documents.indexes.models import (
     SearchIndex, SearchFieldDataType, SimpleField,
     SearchableField, VectorSearch,
@@ -8,6 +8,7 @@ from azure.search.documents.indexes.models import (
 )
 from config import get_index_client, get_settings
 from routers import chat, productos
+from security import verify_api_key
 
 
 def _crear_indice_si_no_existe():
@@ -62,6 +63,7 @@ app = FastAPI(
     description="Backend RAG sobre catálogo de productos de GSA con Azure.",
     version="1.0.0",
     lifespan=lifespan,
+    dependencies=[Depends(verify_api_key)]
 )
 
 app.include_router(chat.router)
