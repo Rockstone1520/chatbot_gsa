@@ -4,7 +4,14 @@ from config import get_settings
 
 api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
 
-PUBLIC_PATHS = {"/health", "/", "/docs", "/openapi.json"}
+PUBLIC_PATHS = {
+    "/health",
+    "/",
+    "/docs",
+    "/openapi.json",
+    "/auth/login",
+    "/auth/register"
+}
 
 async def verify_api_key(request: Request, key: str = Security(api_key_header)):
     if request.url.path in PUBLIC_PATHS:

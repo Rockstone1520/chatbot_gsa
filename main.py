@@ -6,8 +6,9 @@ from azure.search.documents.indexes.models import (
     HnswAlgorithmConfiguration, VectorSearchProfile,
     SearchField as VectorField,
 )
+from database import engine, Base
 from config import get_index_client, get_settings
-from routers import chat, productos
+from routers import chat, productos, auth_router
 from security import verify_api_key
 
 
@@ -49,11 +50,15 @@ def _crear_indice_si_no_existe():
         SearchIndex(name=s.azure_search_index_name, fields=campos, vector_search=vector_search)
     )
 
+def _crear_database_si_no_existe():
+    """Crea los database que heredan de la clase Base"""
+    Base.metadata.create_all(bind=engine)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup: crea el índice si no existe
     _crear_indice_si_no_existe()
+    _crear_database_si_no_existe()
     yield
     # Shutdown: nada que limpiar
 
@@ -68,7 +73,7 @@ app = FastAPI(
 
 app.include_router(chat.router)
 app.include_router(productos.router)
-
+app.include_router(auth_router.router)
 
 @app.get("/health", tags=["infra"])
 def health():

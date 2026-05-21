@@ -29,6 +29,17 @@ class Settings(BaseSettings):
     # Seguridad
     internal_api_key: str
 
+    # JWT
+    jwt_secret_key: str
+    jwt_algorithm: str = "HS256"
+    jwt_expire_minutes: int = 480
+
+    # Azure SQL Database
+    azure_sql_server: str
+    azure_sql_database: str
+    azure_sql_user: str
+    azure_sql_password: str
+
     class Config:
         env_file = ".env"
         case_sensitive = False
